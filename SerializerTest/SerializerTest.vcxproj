@@ -123,12 +123,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Dynamics.h" />
     <ClInclude Include="ISerializable.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Persist.h" />
     <ClInclude Include="Serializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Persist.cpp" />
     <ClCompile Include="Serializer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

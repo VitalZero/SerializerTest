@@ -2,6 +2,7 @@
 #include "ISerializable.h"
 #include <map>
 
+// Serialize tree like objects
 using ObjectsIds = std::map<const ISerializable*, int>;
 
 class Serializer
