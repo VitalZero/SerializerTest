@@ -79,3 +79,11 @@ public:
 		return clone->CreateObj();
 	}
 };
+
+class AddClonable 
+{
+public:
+	AddClonable( const char* className, const IClonable* clone ) {
+		Clonables::Instance().AddClonable( className, clone );
+	}
+};

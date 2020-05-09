@@ -4,13 +4,13 @@
 
 Archive& Archive::operator<<( int val )
 {
-	write( &val, sizeof( int ) );
+	Write( &val, sizeof( int ) );
 	return *this;
 }
 
 Archive& Archive::operator>>( int& val )
 {
-	read( &val, sizeof( int ) );
+	Read( &val, sizeof( int ) );
 	return *this;
 }
 
@@ -18,7 +18,7 @@ Archive& Archive::operator<<( const std::string& str )
 {
 	int length = str.length();
 	*this << length;
-	write( str.c_str(), sizeof( char ) * length );
+	Write( str.c_str(), sizeof( char ) * length );
 	return *this;
 }
 
@@ -30,7 +30,7 @@ Archive& Archive::operator>>( std::string& str )
 	std::vector<char> mem( length + 1 );
 
 	char* pChars = &mem[0];
-	read( pChars, sizeof( char ) * length );
+	Read( pChars, sizeof( char ) * length );
 
 	mem[length] = NULL;
 	str = pChars;
@@ -38,7 +38,7 @@ Archive& Archive::operator>>( std::string& str )
 	return *this;
 }
 
-void ArchiveFile::write( const void* buffer, size_t length )
+void ArchiveFile::Write( const void* buffer, size_t length )
 {
 	stream->write( (const char*)buffer, length );
 
@@ -46,7 +46,7 @@ void ArchiveFile::write( const void* buffer, size_t length )
 		throw "ArchiveFile::write Error";
 }
 
-void ArchiveFile::read( void* buffer, size_t length )
+void ArchiveFile::Read( void* buffer, size_t length )
 {
 	stream->read( (char*)buffer, length );
 

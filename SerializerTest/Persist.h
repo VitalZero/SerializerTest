@@ -25,8 +25,8 @@ public:
 	{}
 	virtual ~Archive() {}
 
-	virtual void write( const void* buffer, size_t length ) {}
-	virtual void read( void* buffer, size_t length ) {}
+	virtual void Write( const void* buffer, size_t length ) {}
+	virtual void Read( void* buffer, size_t length ) {}
 
 	Archive& operator<<( const std::string& str );
 	Archive& operator>>( std::string& str );
@@ -48,8 +48,8 @@ public:
 		: stream( stream )
 	{}
 	virtual ~ArchiveFile() {}
-	virtual void write( const void* buffer, size_t length );
-	virtual void read( void* buffer, size_t length );
+	virtual void Write( const void* buffer, size_t length );
+	virtual void Read( void* buffer, size_t length );
 
 private:
 	std::iostream* stream;
@@ -69,19 +69,19 @@ protected:
 
 //We want an automatic implementation of the createObj method and an automatic registration
 //of our class into the cloneables collection.This can be done with the following macro declerations :
-//PERSISTENT_DECL macro implements the createObj method of the 'Clonable' class for us.It also adds 
+//PERSISTENT_DECL macro implements the createObj method of the 'IClonable' class for us.It also adds 
 //	'AddClonable' static member to our class : this makes our persistent class register itself to the 
 //	cloneable collection.This should be added to our.h class definition( see examples below ).
 //
 //PERSISTENT_IMPL simply initializes this static member.This should be added to our.cpp class implementation.
 #define PERSISTENT_DECL(className) \
 public: \
-virtual Clonable* createObj() const \
+virtual IClonable* CreateObj() const \
 { \
     return new className(); \
 } \
 private: \
-static AddClonable AddClonable;
+static AddClonable _addClonable;
 
 #define PERSISTENT_IMPL(className) \
-    AddClonable className::AddClonable(#className, new className() );
+    AddClonable className::_addClonable(#className, new className());
